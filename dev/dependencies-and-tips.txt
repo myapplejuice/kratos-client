@@ -1,0 +1,86 @@
+------------CMDS------------
+npm install node-modules
+npm install @react-native-async-storage/async-storage
+npx expo install @react-native-picker/picker
+npm install react-native-viewport-units --save
+npm install react-native-css-vh-vw
+npm i react-native-alert-async
+npm install react-native-dialog
+npm install react-native-prompt
+npx expo install expo-camera
+npm install react-native-navigation-bar-color
+npm i react-native-modal  
+npm install --save react-native-flash-message
+npx expo install @react-native-community/datetimepicker
+npx expo eject           
+npx expo prebuild 
+
+------------TIPS------------
+1. import 'Platform' from react native and use it to detect running device
+   EXAMPLE CODE: if (Platform.OS === 'ios') ...do something, if (Platform.OS === 'web') ...do something
+
+2. import Dimensions from react native and use it to determine the size of different components based
+   on dimensions of the running device.
+
+3. install and import React Native AlertAsync and use it to make confirmation windows for mobile devices.
+   EXAMPLE CODE: await AlertAsync('title', 'message', [{ text: 'OK', onPress: () => Promise.resolve('ok') },],)
+   install and import React Native Prompt and use it to make prompt windows and accept input from user for mobile devices.
+   EXAMPLE CODE: 
+              <Prompt
+                title="title"
+                placeholder="request"
+                visible={useState setter for visibility}
+                onCancel={on cancel do func}
+                onSubmit={on submit do func}
+              /> 
+   use alert, confirm and prompt for web devices.
+
+4. use react useEffect for initial actions.
+   EXAMPLE CODE: 
+     React.useEffect(() => {
+            async function fetchUser() {
+            const USER = JSON.parse(await AsyncStorage.getItem('currentUser'))
+            setUser(USER)
+            setUsername(USER.username)
+        }
+        fetchUser()
+     }, []);
+
+5. use TouchableOpacity instead of TouchableHighlight for buttons and pressables!
+
+6. before continuing with project, create components for use such as buttons, inputs 
+   and their own stylesheets rather than creating them for every page.
+
+7. use AsyncStorage to store user preferences such as light or dark and certain app settings, 
+   and use server database to store user information such as plans and personal information.
+
+8. use uri instead of require with Image tag.
+
+9. in layout.jsx, control each page header options and other settings.
+   EXAMPLE CODE:
+         <Stack >
+             <Stack.Screen name="login" options={{ headerShown: false }} />
+             <Stack.Screen name="register" options={{ headerShown: false }} />
+             <Stack.Screen name="homepage" options={{ headerTintColor: "white", headerStyle: { backgroundColor: "black" }}}/>
+             <Stack.Screen name="admin"/>
+        </Stack>
+          
+10. SafeAreaView: Ensures that the content of the app stays within the safe area of the screen, especially on
+    devices with notches or curved edges.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

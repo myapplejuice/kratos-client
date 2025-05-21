@@ -1,0 +1,38 @@
+registeration -> index (
+    //useEffect(() => {
+    //    //DO THIS WHEN FINISHING USER REGISTERATION
+    //    //(async () => {
+    //    //    const USER = JSON.parse(await AsyncStorage.getItem("currentUser"))
+    //    //    if (USER != undefined)
+    //    //        router.navigate('/homepage')
+    //    //})()
+    //
+    //    const onBackPress = () => {
+    //        Alert.alert(
+    //            'Cancel registeration',
+    //            'Are you sure you want to cancel registeration and go back to login?',
+    //            [
+    //                {
+    //                    text: 'CANCEL',
+    //                    onPress: () => {
+    //                        // Do nothing
+    //                    },
+    //                    style: 'cancel',
+    //                },
+    //                { text: 'YES', onPress: () => { router.navigate('/login') } },
+    //            ],
+    //            { cancelable: false }
+    //        );
+    //
+    //        return true;
+    //    };
+    //
+    //    const backHandler = BackHandler.addEventListener(
+    //        'hardwareBackPress',
+    //        onBackPress
+    //    );
+    //
+    //    return () => backHandler.remove();
+    //}, [])
+)
+
