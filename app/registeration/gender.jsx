@@ -1,14 +1,21 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
+import { Alert } from "react-native";
 
 export default function Gender(props) {
     const [optionChosen, setOptionChosen] = useState(false)
-    const [alertVisibility, setAlertVisibility] = useState(false)
 
     function initNext() {
         if (!optionChosen) {
-            setAlertVisibility(true)
+            Alert.alert(
+                "Missing Information",
+                "Please choose a gender!",
+                [
+                    { text: "OK" },
+                ],
+                { cancelable: false }
+            );
             return
         }
         props.initNext()
@@ -62,7 +69,7 @@ export default function Gender(props) {
                 </TouchableOpacity>
             </View>
             <View style={{ flex: 1 }}>
-              
+
             </View>
         </View>
     )
@@ -114,7 +121,7 @@ const styles = StyleSheet.create({
         height: 40
     },
     btnText: {
-        color: "black",
+        color: "white",
         fontFamily: "tahoma",
         letterSpacing: 1,
         fontWeight: "500",

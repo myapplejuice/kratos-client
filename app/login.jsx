@@ -16,42 +16,31 @@ export default function Login() {
         //        router.navigate('/homepage')
         //})()
 
-        const onBackPress = () => {
-            Alert.alert(
-                'Exit App',
-                Platform.OS === "android" ? 'Are you sure you want to exit the app?' : 'Are you sure you want to go back to the login screen?',
-                [
-                    {
-                        text: 'Cancel',
-                        onPress: () => {
-                            // Do nothing
-                        },
-                        style: 'cancel',
-                    },
-                    {
-                        text: 'YES', onPress: () => {
-                            if (Platform.OS === "android") {
-                                BackHandler.exitApp();
-                            } else {
-                                // iOS: navigate to safe initial screen
-                                router.replace("/login");
-                            }
+        if (Platform.OS === "android") {
+            const onBackPress = () => {
+                Alert.alert(
+                    'Exit App',
+                    '\nAre you sure you want to exit the app?',
+                    [
+                        { text: 'CANCEL', style: 'cancel' },
+                        {
+                            text: 'YES',
+                            onPress: () => BackHandler.exitApp()
                         }
-                    },
-                ],
-                { cancelable: false }
+                    ],
+                    { cancelable: false }
+                );
+                return true;
+            };
+
+            const backHandler = BackHandler.addEventListener(
+                'hardwareBackPress',
+                onBackPress
             );
 
-            return true;
-        };
-
-        const backHandler = BackHandler.addEventListener(
-            'hardwareBackPress',
-            onBackPress
-        );
-
-        return () => backHandler.remove();
-    }, [])
+            return () => backHandler.remove();
+        }
+    }, []);
 
     async function initSignIn() {
         if (validateUserInputs()) {
@@ -80,41 +69,43 @@ export default function Login() {
 
     return (
         <SafeAreaView style={styles.mainView}>
-            <Text style={styles.introTitle}>The Kratos Hub</Text>
-            <Text style={styles.title}>LOGIN</Text>
-            <TextInput
-                onChangeText={(value) => setUsername(value)}
-                placeholder="Username"
-                placeholderTextColor={"white"}
-                style={[styles.input, { outline: 'none' }]}
-            />
-            <TextInput
-                onChangeText={(value) => setPassword(value)}
-                placeholder="Password"
-                placeholderTextColor={"white"}
-                style={[styles.input, { outline: 'none' }]}
-            />
-            <Link
-                href=""
-                style={{ color: "#F25B36", marginBlock: 10 }}>
-                Forgot password
-            </Link>
-            <TouchableOpacity
-                onPress={() => router.replace("/registeration")}
-                style={styles.linkContainer}
-            >
-                <Text style={styles.span}>Don't have an account?{"\n"}<Text style={styles.link}> Start here</Text></Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.btn}
-                onPress={initSignIn}>
-                <View style={{ marginBlock: "auto" }}>
-                    <Text style={styles.btnText}>
-                        Submit
-                    </Text>
-                </View>
-            </TouchableOpacity>
-            <Text style={{ color: "white", textAlign: "center", alignSelf: "center" }}>By continuing, you agree to our <Text style={{ color: "#F25B36" }}>Terms of Service</Text> and <Text style={{ color: "#F25B36" }}>Privacy Policy</Text></Text>
+            <View style={{ flex: 6, justifyContent: "center", alignItems: "center", width: width }}>
+                <Text style={styles.introTitle}>The Kratos Hub</Text>
+                <Text style={styles.title}>LOGIN</Text>
+                <TextInput
+                    onChangeText={(value) => setUsername(value)}
+                    placeholder="Username"
+                    placeholderTextColor={"white"}
+                    style={[styles.input, { outline: 'none' }]}
+                />
+                <TextInput
+                    onChangeText={(value) => setPassword(value)}
+                    placeholder="Password"
+                    placeholderTextColor={"white"}
+                    style={[styles.input, { outline: 'none' }]}
+                />
+                <Link
+                    href=""
+                    style={{ color: "#F25B36", marginBlock: 10 }}>
+                    Forgot password
+                </Link>
+                <TouchableOpacity
+                    onPress={() => router.replace("/registeration")}
+                    style={styles.linkContainer}
+                >
+                    <Text style={styles.span}>Don't have an account?{"\n"}<Text style={styles.link}>Start here</Text></Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.btn}
+                    onPress={initSignIn}>
+                    <View style={{ marginBlock: "auto" }}>
+                        <Text style={styles.btnText}>
+                            Submit
+                        </Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
+            <Text style={{ color: "white", textAlign: "center", alignSelf: "center", flex: 1 }}>By continuing, you agree to our <Text style={{ color: "#F25B36" }}>Terms of Service</Text> and <Text style={{ color: "#F25B36" }}>Privacy Policy</Text></Text>
         </SafeAreaView>
     );
 }

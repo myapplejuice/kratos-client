@@ -5,28 +5,21 @@ export default function RootLayout() {
     <Stack>
       <Stack.Screen name="index"
         options={{
-          headerShown: false,
-          statusBarBackgroundColor: "rgb(29,29,29)",
-          navigationBarColor: "rgb(29, 29, 29)",
-          headerStyle: { backgroundColor: "rgb(29, 29, 29)" },
+          headerShown: false
         }}
       />
       <Stack.Screen name="login"
         options={{
           headerShown: false,
-          statusBarBackgroundColor: "rgb(29,29,29)",
-          navigationBarColor: "rgb(29, 29, 29)",
-          headerStyle: { backgroundColor: "rgb(29, 29, 29)" },
-          headerTintColor: "white"
         }}
       />
       <Stack.Screen name="registeration/index"
         options={{
-          statusBarBackgroundColor: "#F25B36",
-          navigationBarColor: "rgb(29, 29, 29)",
           headerStyle: { backgroundColor: "#F25B36" },
           headerTintColor: "white",
-          headerTitle: "Registeration"
+          headerTitle: "Registeration",
+          headerTitleAlign: "center",
+          headerLeft: () => null,
         }}
       />
     </Stack>

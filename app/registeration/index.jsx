@@ -1,4 +1,4 @@
-import { View, StyleSheet, Alert, BackHandler } from "react-native";
+import { View, StyleSheet, Alert, BackHandler, Platform } from "react-native";
 import { useState, useEffect } from "react";
 import { useRouter, useNavigation } from "expo-router";
 import Gender from "./gender";
@@ -8,8 +8,9 @@ export default function Registeration() {
     const [currentPage, setCurrentPage] = useState("Gender")
     const [gender, setGender] = useState()
     const [age, setAge] = useState()
-    const navigation = useNavigation();
     const router = useRouter();
+    const selectedStyle = { backgroundColor: "white", width: 7, height: 7 };
+    const unselectedStyle = { backgroundColor: "rgba(255,255,255,0.5)", width: 5, height: 5 };
 
     useEffect(() => {
         //DO THIS WHEN FINISHING USER REGISTERATION
@@ -18,39 +19,35 @@ export default function Registeration() {
         //    if (USER != undefined)
         //        router.navigate('/homepage')
         //})()
-        
-        const handleCancel = () => {
-            Alert.alert(
-                "Cancel registration",
-                "Are you sure you want to cancel registration and go back to login?",
-                [
-                    { text: "CANCEL", style: "cancel" },
-                    { text: "YES", onPress: () => router.push("/login") },
-                ],
-                { cancelable: false }
-            );
-        };
 
-        // Hardware back button handler (Android)
-        const backHandler = BackHandler.addEventListener(
-            "hardwareBackPress",
-            () => {
+        if (Platform.OS === "android") {
+            const handleCancel = () => {
+                Alert.alert(
+                    'Cancel Registration',
+                    '\nAre you sure you want to cancel registration?\nAll information will be reset!',
+                    [
+                        { text: "CANCEL", style: "cancel" },
+                        {
+                            text: "YES",
+                            onPress: () => {
+                                setTimeout(() => {
+                                    router.replace('login');
+                                }, 100);
+                            },
+                        },
+                    ],
+                    { cancelable: false }
+                );
+            };
+
+            const backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
                 handleCancel();
-                return true; // prevent default behavior
-            }
-        );
+                return true;
+            });
 
-        // Header back button handler
-        const unsubscribe = navigation.addListener("beforeRemove", (e) => {
-            e.preventDefault(); // Prevent default behavior of leaving screen
-            handleCancel();
-        });
-
-        return () => {
-            backHandler.remove();
-            unsubscribe();
-        };
-    }, [navigation, router]);
+            return () => backHandler.remove();
+        }
+    }, [router]);
 
     return (
         <View
@@ -61,18 +58,12 @@ export default function Registeration() {
             }}
         >
             <View style={styles.dotContainer}>
-                <View style={[styles.dot, currentPage == "Gender" ? { backgroundColor: "rgb(255, 255, 255)", width: 7, height: 7 }
-                    : { backgroundColor: "rgba(255, 255, 255, 0.5)", width: 5, height: 5 }]}></View>
-                <View style={[styles.dot, currentPage == "Age" ? { backgroundColor: "rgb(255, 255, 255)", width: 7, height: 7 }
-                    : { backgroundColor: "rgba(255, 255, 255, 0.5)", width: 5, height: 5 }]}></View>
-                <View style={[styles.dot, currentPage == "Gen" ? { backgroundColor: "rgb(255, 255, 255)", width: 7, height: 7 }
-                    : { backgroundColor: "rgba(255, 255, 255, 0.5)", width: 5, height: 5 }]}></View>
-                <View style={[styles.dot, currentPage == "Gder" ? { backgroundColor: "rgb(255, 255, 255)", width: 7, height: 7 }
-                    : { backgroundColor: "rgba(255, 255, 255, 0.5)", width: 5, height: 5 }]}></View>
-                <View style={[styles.dot, currentPage == "Gder" ? { backgroundColor: "rgb(255, 255, 255)", width: 7, height: 7 }
-                    : { backgroundColor: "rgba(255, 255, 255, 0.5)", width: 5, height: 5 }]}></View>
-                <View style={[styles.dot, currentPage == "ender" ? { backgroundColor: "rgb(255, 255, 255)", width: 7, height: 7 }
-                    : { backgroundColor: "rgba(255, 255, 255, 0.5)", width: 5, height: 5 }]}></View>
+                <View style={[styles.dot, currentPage == "Gender" ? selectedStyle : unselectedStyle]}></View>
+                <View style={[styles.dot, currentPage == "Age" ? selectedStyle : unselectedStyle]}></View>
+                <View style={[styles.dot, currentPage == "Gen" ? selectedStyle : unselectedStyle]}></View>
+                <View style={[styles.dot, currentPage == "Gder" ? selectedStyle : unselectedStyle]}></View>
+                <View style={[styles.dot, currentPage == "Gder" ? selectedStyle : unselectedStyle]}></View>
+                <View style={[styles.dot, currentPage == "ender" ? selectedStyle : unselectedStyle]}></View>
             </View>
             <View style={currentPage == "Gender" ? {} : { display: "none" }}>
                 <Gender setGender={(src) => setGender(src)} initNext={() => setCurrentPage("Age")} />

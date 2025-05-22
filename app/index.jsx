@@ -6,7 +6,7 @@ export default function Index() {
   const KEYFRAME = useState()
 
   useEffect(() => {
-    setTimeout(() => { router.navigate('/login') }, 2000)
+    setTimeout(() => { router.replace('/login') }, 2000)
   }, [])
 
   const styles = StyleSheet.create({

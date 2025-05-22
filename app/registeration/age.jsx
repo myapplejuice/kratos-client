@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
         height: 40
     },
     btnText: {
-        color: "black",
+        color: "white",
         fontFamily: "tahoma",
         letterSpacing: 1,
         fontWeight: "500",
